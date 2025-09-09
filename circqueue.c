@@ -12,7 +12,7 @@ then it will skip the 1 2 indexs to search for*/
 int cq[MAX], r = -1, f = -1, i, x;
 
 void enqueue(int x) {
-  if (r == MAX - 1) {
+  if ((r + 1) % MAX == f) {
     printf("queue is oevrflow");
     return;
   }
