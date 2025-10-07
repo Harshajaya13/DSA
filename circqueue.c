@@ -5,7 +5,13 @@ max then the 1 is missing not to print as the i != 1 when r is 0 so how can the
 as it only prints the presnet elements not deleted ones so i!= (r+1%)max works
 as it skips the deleted one unlike the search
 even in search when we use the r+1 condition it is like if the f is 3 and r is 0
-then it will skip the 1 2 indexs to search for*/
+then it will skip the 1 2 indexs to search for
+memory means the slots
+like in the music player
+when we play the ,music in the circular queue when we delete one item that means
+there is  slot free and then we can add a song to fill that space,but we cant
+retain that same song because here the slots are retaining not the data ?/
+*/
 
 #include <stdio.h>
 #define MAX 30
@@ -42,36 +48,55 @@ int dequeue() {
 
 void display() {
   if (f == -1) {
-    printf("queue is empty");
-  } else {
-    for (i = f; i != (r + 1) % MAX; i = (i + 1) % MAX) {
-      printf("%d", cq[i]);
-    }
+    printf("Queue is empty.\n");
+    return;
   }
+
+  printf("Queue elements (front to rear): ");
+  int i = f;
+  while (1) {
+    printf("%d ", cq[i]);
+    if (i == r) {
+      break;
+    }
+    i = (i + 1) % MAX;
+  }
+  printf("\n");
 }
 
 void search() {
   int key, found = 0;
-  printf("enter the element: ");
-  scanf("%d", &key);
+
   if (f == -1) {
-    printf("Queue is empty.\n");
+    printf("Queue is empty, cannot search.\n");
     return;
   }
+
+  printf("Enter the element to search for: ");
+  scanf("%d", &key);
+
   int i = f;
-  do {
+  int pos_count = 1;
+
+  while (1) {
     if (cq[i] == key) {
-      printf("Found at position %d\n", i);
+
+      printf("Element %d found at index %d (position %d in queue).\n", key, i,
+             pos_count);
       found = 1;
       break;
     }
+    if (i == r) {
+      break;
+    }
     i = (i + 1) % MAX;
-  } while (i != (r + 1) % MAX);
+    pos_count++;
+  }
 
-  if (!found)
-    printf("Not found.\n");
+  if (!found) {
+    printf("Element %d not found in the queue.\n", key);
+  }
 }
-
 int main() {
   int opt;
   do {
